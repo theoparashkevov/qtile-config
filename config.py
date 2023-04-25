@@ -161,7 +161,14 @@ scratch_pad = ScratchPad(
         # North West
         DropDown('emacs-youtube-light-nw', 'kitty emacs -nw --load /home/tcv/.config/emacs/yt-live-text-light.el --file /home/tcv/Temporary/yt-notes-light.org', width=0.45, height=0.5, x=0.025, y=0.03, opocity=0.8),
         DropDown('emacs-youtube-dark-nw', 'kitty emacs -nw --load /home/tcv/.config/emacs/yt-live-text-dark.el --file /home/tcv/Temporary/yt-notes-dark.org', width=0.45, height=0.5, x=0.025, y=0.03, opocity=0.8),
+        # South East
+        DropDown('emacs-youtube-light-se', 'kitty emacs -nw --load /home/tcv/.config/emacs/yt-live-text-light.el --file /home/tcv/Temporary/yt-notes-light.org', width=0.45, height=0.5, x=0.5, y=0.43, opocity=0.8),
+        DropDown('emacs-youtube-dark-se', 'kitty emacs -nw --load /home/tcv/.config/emacs/yt-live-text-dark.el --file /home/tcv/Temporary/yt-notes-dark.org', width=0.45, height=0.5, x=0.5, y=0.43, opocity=0.8),
+        # South  West
+        DropDown('emacs-youtube-light-sw', 'kitty emacs -nw --load /home/tcv/.config/emacs/yt-live-text-light.el --file /home/tcv/Temporary/yt-notes-light.org', width=0.45, height=0.5, x=0.025, y=0.43, opocity=0.8),
+        DropDown('emacs-youtube-dark-sw', 'kitty emacs -nw --load /home/tcv/.config/emacs/yt-live-text-dark.el --file /home/tcv/Temporary/yt-notes-dark.org', width=0.45, height=0.5, x=0.025, y=0.43, opocity=0.8),
 
+        
         
         # Terminal
         DropDown('term_2', 'kitty', width=0.4,  height=0.35, x=0.3, y=0.2, opocity=0.8),
@@ -182,11 +189,15 @@ keys.extend(
         KeyChord([mod, "control"], "l", [
             Key([], "F1", lazy.group['scratchpad'].dropdown_toggle('emacs-youtube-light-nw')),
             Key([], "F2", lazy.group['scratchpad'].dropdown_toggle('emacs-youtube-light-ne')),
+            Key([], "F3", lazy.group['scratchpad'].dropdown_toggle('emacs-youtube-light-sw')),
+            Key([], "F4", lazy.group['scratchpad'].dropdown_toggle('emacs-youtube-light-se')),
         ]),
         
         KeyChord([mod, "control"], "d", [
             Key([], "F1", lazy.group['scratchpad'].dropdown_toggle('emacs-youtube-dark-nw')),
             Key([], "F2", lazy.group['scratchpad'].dropdown_toggle('emacs-youtube-dark-ne')),
+            Key([], "F3", lazy.group['scratchpad'].dropdown_toggle('emacs-youtube-dark-sw')),
+            Key([], "F4", lazy.group['scratchpad'].dropdown_toggle('emacs-youtube-dark-se')),
         ]),
 
         # Emacs Key Chords
