@@ -1,49 +1,4 @@
-* Configuration
-** Basic key Bindings
-1. mod + k or mod + j             : switch windows on the current stack
-2. mod + <space>                  : put focus on the other pane of the stack (when in stack layout)
-3. mod + <tab>                    : switch layouts
-4. mod + w                        : close window
-5. mod + <ctrl> + r               : reload the config
-6. mod + <group name>             : switch to that group
-7. mod + <shift> + <group name>   : send a window to that group
-8. mod + <enter>                  : start terminal guessed by libqtile.utils.guess_terminal
-9. mod + r                        : start a little prompt in the bar so users can run arbitrary commands
-
-** Lazy Objects
-
-** Groupd
-A group is a container for a bunch of windows, analogous to workspaces in other window managers.
-Each client window managed by the window manager belongs to exactly one group.
-The groups config file variable should be initialized to a list of Group objects.
-
-Group objects provide several options for group configuration.
-Groups can be configured to show and hide themselves when they're not empty,
-spawn applications for them when they start, automatically acquire certain groups, and various other options.
-
-** Keys
-The keys variable defines Qtile's key bindings.
-Individual key bindings are defined with Key as demonstrated in the following example.
-Note that you may specify more than one callback functions.
-
-*** KeyChords
-Qtile also allows sequences of keys to trigger callbacks.
-These sequences are known as chords and are defined with KeyChord.
-Chords are added to the keys section of the config file.
-
-
-** Layouts
-A layout is an algorithm for laying out windows in a group on your screen.
-Svince Qtile is a tiling window manager, this usually means that we try to use space as efficiently as possible,
-and give the user ample commands that can be bound to keys to interact with layouts.
-
-The layouts variable defines the list of layouts you will use with Qtile.
-The first layout in the list is the default. If you define more than one layout, you will probably also want
-to define key bindings to let you switch to the next and previous layouts.
-
-
-~/.local/share/qtile/qtile.logx
-
+~/.local/share/qtile/qtile.log
 
 * My Keybindings
 
@@ -54,6 +9,7 @@ Mod + ENTER                : Terminal (Konsole)
 Mod + d                    : Dolphin File manager
 Mod + c                    : Chromium Web Browser
 Mod + t                    : Telegram Desktop
+Mod + space                : ULauncher
 
 *** Functions
 Mod + r                    : Spawn a command unsing a prompt
@@ -91,29 +47,33 @@ Mod + F2                   : Set BG-ph
 
 ** Scratchpad
 
-# Emacs
+*** Emacs
 # open in kitty Terminal
 Mod + e
-Mod + e + 8                : Emacs YT Notes (Light) 
-Mod + e + 9                : Emacs YT Notes (Dark)
-Mod + e + n                : Emacs Notes (~/Temporary/notes.org)
+# YouTube
+Mod + Ctr + l + F1                : Emacs YT Notes (Light) (NW) 
+Mod + Ctr + l + F2                : Emacs YT Notes (Light) (NE)
+Mod + Ctr + l + F3                : Emacs YT Notes (Light) (SW)
+Mod + Ctr + l + F4                : Emacs YT Notes (Light) (SE)
 
-# System
+Mod + Ctr + d + F1                : Emacs YT Notes (Dark)  (NW) 
+Mod + Ctr + d + F2                : Emacs YT Notes (Dark)  (NE)
+Mod + Ctr + d + F3                : Emacs YT Notes (Dark)  (SW)
+Mod + Ctr + d + F4                : Emacs YT Notes (Dark)  (SE)
+# Notes
+Mod + n                           : Emacs Notes (~/Notes/)
+Mod + Ctr + p                     : QTile Keybindings.org
+
+*** System
 # open in kitty Terminal
 Mod + s + h                : Htop
 Mod + s + u                : Update System
 
-# File Manager
+*** File Manager
 # open in kitty Terminal
 Ctr + r                    : (Ranger) File Manager
 Ctr + 3                    : (Ranger) Project Euler Answers
 Ctr + 4                    : (Ranger) Python Learning Materials
 
 
-
-
-1) Notes During Video in Emacs
-   - NE / SE / SW / NW
-   - Different Theam than normal Emacs (custom init.el)
-   -
 
