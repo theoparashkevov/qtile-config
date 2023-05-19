@@ -1,3 +1,4 @@
+
 #    Author: Teo Parashkevov
 #    Email: theo.parashkevov@gmail.com
 #
@@ -91,7 +92,6 @@ keys = [
     # Telegram Desktop
     Key([mod], "t", lazy.spawn("telegram-desktop"), desc="Spawn Telegram Desktop"),
 
-
     # ULauncher
     Key([mod], 'space', lazy.spawn('ulauncher'), desc='Run ULauncher'),
 
@@ -152,8 +152,11 @@ scratch_pad = ScratchPad(
         DropDown('python-learning-materials', 'kitty ranger /home/tcv/PycharmProjects/python-learning-materials/', width=0.7, height=0.8, x=0.15, y=0.1, opocity=0.8 ),
 
         # Emacs Notes
-        DropDown('emacs-notes', 'kitty emacs -nw /home/tcv/Temporary/notes.org',  width=0.7, height=0.8, x=0.15, y=0.1, opocity=0.8),
+        DropDown('emacs-notes', 'kitty emacs -nw /home/tcv/Notes/',  width=0.7, height=0.8, x=0.15, y=0.1, opocity=0.8),
+        # Emacs QTile Keybindings
+        DropDown('emacs-qtile-keybindings', 'kitty emacs -nw ~/.config/qtile/keybindings.org',  width=0.4, height=0.85, x=0.25, y=0.05, opocity=0.8),
 
+        
         # Emacs YouTube
         # North East
         DropDown('emacs-youtube-light-ne', 'kitty emacs -nw --load /home/tcv/.config/emacs/yt-live-text-light.el --file /home/tcv/Temporary/yt-notes-light.org', width=0.45, height=0.5, x=0.5, y=0.03, opocity=0.8),
@@ -202,7 +205,8 @@ keys.extend(
 
         # Emacs Key Chords
         Key([mod], "n", lazy.group['scratchpad'].dropdown_toggle('emacs-notes')),
-
+        Key([mod, "control"], "p", lazy.group['scratchpad'].dropdown_toggle('emacs-qtile-keybindings')),
+     
         # System
         KeyChord( [mod], "s", [
             Key([], "h", lazy.group['scratchpad'].dropdown_toggle('htop')),
