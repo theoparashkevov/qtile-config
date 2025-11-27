@@ -22,12 +22,9 @@ from screens import *
 
 
 mod = "mod4"
-# terminal = guess_terminal()
-terminal = 'konsole'
-
-
-
-# AI Write a comment 
+# The terminal variable is set to 'konsole', which is the terminal emulator
+# that will be launched when the terminal keybinding is used. This can be
+# changed to any other terminal emulator of your choice.
 
 
 
