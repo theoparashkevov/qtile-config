@@ -1,69 +1,40 @@
 
-#    Author: Teo Parashkevov
-#    Email: theo.parashkevov@gmail.com
-#
-#
-#
-#
-#
+# Author: Teo Parashkevov
+# Email: theo.parashkevov@gmail.com
 
-
-##################################################################### 
-#     █ █▀▄▀█ █▀█ █▀█ █▀█ ▀█▀ █▀
-#     █ █░▀░█ █▀▀ █▄█ █▀▄ ░█░ ▄█
-#####################################################################
 from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen, ScratchPad, DropDown, KeyChord
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
-
 from screens import *
 
-
-
 mod = "mod4"
+terminal = guess_terminal()
 
-# The terminal variable is set to 'konsole', which is the terminal emulator
-# that will be launched when the terminal keybinding is used. This can be
-# changed to any other terminal emulator of your choice.
-
-
-
-
-
-
-
-#####################################################################
-# Keys
-#####################################################################
+# Keybindings
 keys = [
     
-    # Switch between windows
+    # Window focus
     Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
     Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
     
-    # Move windows between left/right columns or move up/down in current stack.
-    # Moving out of range in Columns layout will create new column.
+    # Window movement
     Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
     Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
     Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
     Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
     
-    # Grow windows. If current window is on the edge of screen and direction
-    # will be to screen edge - window would shrink.
+    # Window resizing
     Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
     Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
     Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
     Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
 
-    # Toggle between split and unsplit sides of stack.
-    # Split = all windows displayed
-    # Unsplit = 1 window displayed, like Max layout, but still with
-    # multiple stack panes
+    # Layout management
     Key(
         [mod, "shift"],
         "Return",
@@ -81,19 +52,16 @@ keys = [
 
 
     
-    # File management
+    # Applications
     Key([mod], "d", lazy.spawn("dolphin"), desc="Spawn Dolphin File Manager"),
 
-    # Web Browser (Chromium)
     Key([mod], "c", lazy.spawn("chromium"), desc="Spawn Chromium Web Browser"),
 
-    # Telegram Desktop
     Key([mod], "t", lazy.spawn("telegram-desktop"), desc="Spawn Telegram Desktop"),
 
-    # ULauncher
     Key([mod], 'space', lazy.spawn('ulauncher'), desc='Run ULauncher'),
 
-    # eyboard Layouts
+    # Keyboard layouts
     Key([mod], 'F1', lazy.spawn('setxkbmap us'), desc="Set Keyboard to US"),
     Key([mod], 'F2', lazy.spawn('setxkbmap bg bas_phonetic'), desc="Set Keyboard to BG Phonetic"),
     # Key([mod], 'F3', lazy.spawn('setxkbmap us'), desc="Set Keyboard to Chinese"),
