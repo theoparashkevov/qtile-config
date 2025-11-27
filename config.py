@@ -95,46 +95,54 @@ def group_keybindings(groups, mod=MOD):
     return k
 
 
-#####################################################################
-# ScratchPads
-#####################################################################
-scratch_pad = ScratchPad(
-    name = 'scratchpad',
-    dropdowns = [
-        DropDown('upgrade',  'kitty sudo pacman -Suy', width=0.8, height=0.6, x=0.1, y=0.2, opocity=0.8),
-        DropDown('ranger', 'kitty ranger', width=0.5, height=0.45, x=0.25, y=0.2, opocity=0.8),
-        DropDown('htop', 'kitty htop', width=0.7, height=0.8, x=0.15, y=0.1, opocity=0.8 ),
-        DropDown('project-euler', 'kitty ranger /home/tcv/PycharmProjects/ProjectEulerAnswers/Python/', width=0.7, height=0.8, x=0.15, y=0.1, opocity=0.8 ),
-        DropDown('python-learning-materials', 'kitty ranger /home/tcv/PycharmProjects/python-learning-materials/', width=0.7, height=0.8, x=0.15, y=0.1, opocity=0.8 ),
+def make_scratchpad():
+    return ScratchPad(
+        name="scratchpad",
+        dropdowns=[
+            DropDown("upgrade", "kitty sudo pacman -Suy", width=0.8, height=0.6, x=0.1, y=0.2, opacity=0.8),
+            DropDown("ranger", "kitty ranger", width=0.5, height=0.45, x=0.25, y=0.2, opacity=0.8),
+            DropDown("htop", "kitty htop", width=0.7, height=0.8, x=0.15, y=0.1, opacity=0.8),
+            DropDown("project-euler", "kitty ranger /home/tcv/PycharmProjects/ProjectEulerAnswers/Python/",
+                     width=0.7, height=0.8, x=0.15, y=0.1, opacity=0.8),
+            DropDown("python-learning-materials", "kitty ranger /home/tcv/PycharmProjects/python-learning-materials/",
+                     width=0.7, height=0.8, x=0.15, y=0.1, opacity=0.8),
 
-        # Emacs Notes
-        DropDown('emacs-notes', 'kitty emacs -nw /home/tcv/Notes/',  width=0.7, height=0.8, x=0.15, y=0.1, opocity=0.8),
-        # Emacs QTile Keybindings
-        DropDown('emacs-qtile-keybindings', 'kitty emacs -nw ~/.config/qtile/keybindings.org',  width=0.4, height=0.85, x=0.25, y=0.05, opocity=0.8),
+            # Emacs Notes
+            DropDown("emacs-notes", "kitty emacs -nw /home/tcv/Notes/", width=0.7, height=0.8, x=0.15, y=0.1, opacity=0.8),
+            # Emacs QTile Keybindings
+            DropDown("emacs-qtile-keybindings", "kitty emacs -nw ~/.config/qtile/keybindings.org",
+                     width=0.4, height=0.85, x=0.25, y=0.05, opacity=0.8),
 
-        
-        # Emacs YouTube
-        # North East
-        DropDown('emacs-youtube-light-ne', 'kitty emacs -nw --load /home/tcv/.config/emacs/yt-live-text-light.el --file /home/tcv/Temporary/yt-notes-light.org', width=0.45, height=0.5, x=0.5, y=0.03, opocity=0.8),
-        DropDown('emacs-youtube-dark-ne', 'kitty emacs -nw --load /home/tcv/.config/emacs/yt-live-text-dark.el --file /home/tcv/Temporary/yt-notes-dark.org', width=0.45, height=0.5, x=0.5, y=0.03, opocity=0.8),
-        # North West
-        DropDown('emacs-youtube-light-nw', 'kitty emacs -nw --load /home/tcv/.config/emacs/yt-live-text-light.el --file /home/tcv/Temporary/yt-notes-light.org', width=0.45, height=0.5, x=0.025, y=0.03, opocity=0.8),
-        DropDown('emacs-youtube-dark-nw', 'kitty emacs -nw --load /home/tcv/.config/emacs/yt-live-text-dark.el --file /home/tcv/Temporary/yt-notes-dark.org', width=0.45, height=0.5, x=0.025, y=0.03, opocity=0.8),
-        # South East
-        DropDown('emacs-youtube-light-se', 'kitty emacs -nw --load /home/tcv/.config/emacs/yt-live-text-light.el --file /home/tcv/Temporary/yt-notes-light.org', width=0.45, height=0.5, x=0.5, y=0.43, opocity=0.8),
-        DropDown('emacs-youtube-dark-se', 'kitty emacs -nw --load /home/tcv/.config/emacs/yt-live-text-dark.el --file /home/tcv/Temporary/yt-notes-dark.org', width=0.45, height=0.5, x=0.5, y=0.43, opocity=0.8),
-        # South  West
-        DropDown('emacs-youtube-light-sw', 'kitty emacs -nw --load /home/tcv/.config/emacs/yt-live-text-light.el --file /home/tcv/Temporary/yt-notes-light.org', width=0.45, height=0.5, x=0.025, y=0.43, opocity=0.8),
-        DropDown('emacs-youtube-dark-sw', 'kitty emacs -nw --load /home/tcv/.config/emacs/yt-live-text-dark.el --file /home/tcv/Temporary/yt-notes-dark.org', width=0.45, height=0.5, x=0.025, y=0.43, opocity=0.8),
+            # Emacs YouTube (various positions)
+            DropDown("emacs-youtube-light-ne",
+                     "kitty emacs -nw --load /home/tcv/.config/emacs/yt-live-text-light.el --file /home/tcv/Temporary/yt-notes-light.org",
+                     width=0.45, height=0.5, x=0.5, y=0.03, opacity=0.8),
+            DropDown("emacs-youtube-dark-ne",
+                     "kitty emacs -nw --load /home/tcv/.config/emacs/yt-live-text-dark.el --file /home/tcv/Temporary/yt-notes-dark.org",
+                     width=0.45, height=0.5, x=0.5, y=0.03, opacity=0.8),
+            DropDown("emacs-youtube-light-nw",
+                     "kitty emacs -nw --load /home/tcv/.config/emacs/yt-live-text-light.el --file /home/tcv/Temporary/yt-notes-light.org",
+                     width=0.45, height=0.5, x=0.025, y=0.03, opacity=0.8),
+            DropDown("emacs-youtube-dark-nw",
+                     "kitty emacs -nw --load /home/tcv/.config/emacs/yt-live-text-dark.el --file /home/tcv/Temporary/yt-notes-dark.org",
+                     width=0.45, height=0.5, x=0.025, y=0.03, opacity=0.8),
+            DropDown("emacs-youtube-light-se",
+                     "kitty emacs -nw --load /home/tcv/.config/emacs/yt-live-text-light.el --file /home/tcv/Temporary/yt-notes-light.org",
+                     width=0.45, height=0.5, x=0.5, y=0.43, opacity=0.8),
+            DropDown("emacs-youtube-dark-se",
+                     "kitty emacs -nw --load /home/tcv/.config/emacs/yt-live-text-dark.el --file /home/tcv/Temporary/yt-notes-dark.org",
+                     width=0.45, height=0.5, x=0.5, y=0.43, opacity=0.8),
+            DropDown("emacs-youtube-light-sw",
+                     "kitty emacs -nw --load /home/tcv/.config/emacs/yt-live-text-light.el --file /home/tcv/Temporary/yt-notes-light.org",
+                     width=0.45, height=0.5, x=0.025, y=0.43, opacity=0.8),
+            DropDown("emacs-youtube-dark-sw",
+                     "kitty emacs -nw --load /home/tcv/.config/emacs/yt-live-text-dark.el --file /home/tcv/Temporary/yt-notes-dark.org",
+                     width=0.45, height=0.5, x=0.025, y=0.43, opacity=0.8),
 
-        
-        
-        # Terminal
-        DropDown('term_2', 'kitty', width=0.4,  height=0.35, x=0.3, y=0.2, opocity=0.8),
-        
-    ]
-
-)
+            # Terminal
+            DropDown("term_2", "kitty", width=0.4, height=0.35, x=0.3, y=0.2, opacity=0.8),
+        ],
+    )
 
 def make_scratchpad_keybindings(scratchpad, mod=MOD):
     k = []
