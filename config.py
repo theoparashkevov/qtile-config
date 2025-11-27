@@ -192,62 +192,34 @@ def make_layouts():
         layout.TreeTab(),
     ]
 
-widget_defaults = dict(
-    font="sans",
-    fontsize=12,
-    padding=3,
-)
-extension_defaults = widget_defaults.copy()
+# Build primary config objects
+keys = make_keys()
+groups = make_groups()
+# group keybindings for the (non-scratchpad) groups
+keys.extend(group_keybindings(groups))
 
+scratchpad = make_scratchpad()
+groups.append(scratchpad)
 
+# scratchpad keybindings
+keys.extend(make_scratchpad_keybindings(scratchpad))
 
+# layouts / screens / mouse / floating
+layouts = make_layouts()
 
-#####################################################################
-# Screens
-#####################################################################
-screens = [
+# widget defaults are defined earlier near the top of the file
+screens = [screen_0, screen_1]
 
-    # check ./screens.py
-    
-    # Color palette
-    # 1) Rich black        - 001524
-    # 2) Caribbean Current - 15616D
-    # 3) Papaya whip       - FFECD1
-    # 4) Orange (wheel)    - FF7D00
-    # 5) Sienna            - 78290F
-
-    screen_0,
-    screen_1
-]
-
-
-
-
-
-
-#####################################################################
-# Mouse
-#####################################################################
-# Drag floating layouts.
+# Mouse (using centralized MOD)
 mouse = [
-    Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
-    Drag([mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
-    Click([mod], "Button2", lazy.window.bring_to_front()),
+    Drag([MOD], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
+    Drag([MOD], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
+    Click([MOD], "Button2", lazy.window.bring_to_front()),
 ]
 
-
-
-
-
-
-dgroups_key_binder     = None
-dgroups_app_rules      = []  # type: list
-follow_mouse_focus     = True
-bring_front_click      = False
-cursor_warp            = False
-floating_layout        = layout.Floating(
+# Floating rules (preserve original rules)
+floating_layout = layout.Floating(
     float_rules=[
-        # Run the utility of `xprop` to see the wm class and name of an X client.
         *layout.Floating.default_float_rules,
         Match(wm_class="confirmreset"),  # gitk
         Match(wm_class="makebranch"),  # gitk
@@ -257,33 +229,18 @@ floating_layout        = layout.Floating(
         Match(title="pinentry"),  # GPG key password entry
     ]
 )
-auto_fullscreen            = True
+
+# Behavioural toggles (unchanged)
+dgroups_key_binder = None
+dgroups_app_rules = []  # type: list
+follow_mouse_focus = True
+bring_front_click = False
+cursor_warp = False
+auto_fullscreen = True
 focus_on_window_activation = "smart"
-reconfigure_screens        = True
-
-# If things like steam games want to auto-minimize themselves when losing
-# focus, should we respect this or not?
+reconfigure_screens = True
 auto_minimize = True
-
-# When using the Wayland backend, this can be used to configure input devices.
 wl_input_rules = None
 
-
-
-
-
-
-
-#####################################################################
-#    █▀▀ █▄░█ █▀▄
-#    ██▄ █░▀█ █▄▀
-#####################################################################
-
-# string besides java UI toolkits; you can see several discussions on the
-# mailing lists, GitHub issues, and other WM documentation that suggest setting
-# this string if your java app doesn't work correctly. We may as well just lie
-# and say that we're a working one by default.
-#
-# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
-# java that happens to be on java's whitelist.
+# wmname (unchanged)
 wmname = "LG3D"
