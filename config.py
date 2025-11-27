@@ -30,9 +30,6 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
-mod = "mod4"
-terminal = guess_terminal()
-
 def make_keys(mod=MOD, terminal=TERMINAL):
     keys = [
         # Window focus
@@ -68,7 +65,7 @@ def make_keys(mod=MOD, terminal=TERMINAL):
         Key([mod], "d", lazy.spawn("dolphin"), desc="Spawn Dolphin File Manager"),
         Key([mod], "c", lazy.spawn("chromium"), desc="Spawn Chromium Web Browser"),
         Key([mod], "t", lazy.spawn("telegram-desktop"), desc="Spawn Telegram Desktop"),
-        Key([mod], "space", lazy.spawn("ulauncher"), desc="Run ULauncher"),
+        Key([mod], "p", lazy.spawn("ulauncher"), desc="Run ULauncher"),
 
         # Keyboard layouts
         Key([mod], "F1", lazy.spawn("setxkbmap us"), desc="Set Keyboard to US"),
@@ -144,7 +141,7 @@ def make_scratchpad():
         ],
     )
 
-def make_scratchpad_keybindings(scratchpad, mod=MOD):
+def make_scratchpad_keybindings(mod=MOD):
     k = []
     # YouTube Key Chords (light)
     k.append(
@@ -202,7 +199,7 @@ scratchpad = make_scratchpad()
 groups.append(scratchpad)
 
 # scratchpad keybindings
-keys.extend(make_scratchpad_keybindings(scratchpad))
+keys.extend(make_scratchpad_keybindings())
 
 # layouts / screens / mouse / floating
 layouts = make_layouts()
