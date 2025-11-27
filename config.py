@@ -6,103 +6,93 @@ from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen, ScratchPad, DropDown, KeyChord
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
-from screens import *
+from screens import screen_0, screen_1
+
+# ---------------------------------------------------------------------
+# Constants / colors / basic settings
+# ---------------------------------------------------------------------
+MOD = "mod4"
+TERMINAL = guess_terminal()
+GROUP_NAMES = "zx123456789"
+
+COLOR_PALETTE = {
+    "rich_black": "001524",
+    "caribbean_current": "15616D",
+    "papaya_whip": "FFECD1",
+    "orange": "FF7D00",
+    "sienna": "78290F",
+}
+
+widget_defaults = dict(
+    font="sans",
+    fontsize=12,
+    padding=3,
+)
+extension_defaults = widget_defaults.copy()
 
 mod = "mod4"
 terminal = guess_terminal()
 
-# Keybindings
-keys = [
-    
-    # Window focus
-    Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
-    Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
-    Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
-    Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
-    Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
-    
-    # Window movement
-    Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
-    Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
-    Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
-    Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
-    
-    # Window resizing
-    Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
-    Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
-    Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
-    Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
-    Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
+def make_keys(mod=MOD, terminal=TERMINAL):
+    keys = [
+        # Window focus
+        Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
+        Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
+        Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
+        Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
+        Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
 
-    # Layout management
-    Key(
-        [mod, "shift"],
-        "Return",
-        lazy.layout.toggle_split(),
-        desc="Toggle between split and unsplit sides of stack",
-    ),
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+        # Window movement
+        Key([mod, "shift"], "h", lazy.layout.shuffle_left(), desc="Move window to the left"),
+        Key([mod, "shift"], "l", lazy.layout.shuffle_right(), desc="Move window to the right"),
+        Key([mod, "shift"], "j", lazy.layout.shuffle_down(), desc="Move window down"),
+        Key([mod, "shift"], "k", lazy.layout.shuffle_up(), desc="Move window up"),
 
-    # Toggle between different layouts as defined below
-    Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
-    Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
-    Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
-    Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+        # Window resizing
+        Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
+        Key([mod, "control"], "l", lazy.layout.grow_right(), desc="Grow window to the right"),
+        Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
+        Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
+        Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
 
+        # Layout management
+        Key([mod, "shift"], "Return", lazy.layout.toggle_split(), desc="Toggle split/unsplit"),
+        Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+        Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
+        Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
+        Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
+        Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
+        Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
 
-    
-    # Applications
-    Key([mod], "d", lazy.spawn("dolphin"), desc="Spawn Dolphin File Manager"),
+        # Applications
+        Key([mod], "d", lazy.spawn("dolphin"), desc="Spawn Dolphin File Manager"),
+        Key([mod], "c", lazy.spawn("chromium"), desc="Spawn Chromium Web Browser"),
+        Key([mod], "t", lazy.spawn("telegram-desktop"), desc="Spawn Telegram Desktop"),
+        Key([mod], "space", lazy.spawn("ulauncher"), desc="Run ULauncher"),
 
-    Key([mod], "c", lazy.spawn("chromium"), desc="Spawn Chromium Web Browser"),
-
-    Key([mod], "t", lazy.spawn("telegram-desktop"), desc="Spawn Telegram Desktop"),
-
-    Key([mod], 'space', lazy.spawn('ulauncher'), desc='Run ULauncher'),
-
-    # Keyboard layouts
-    Key([mod], 'F1', lazy.spawn('setxkbmap us'), desc="Set Keyboard to US"),
-    Key([mod], 'F2', lazy.spawn('setxkbmap bg bas_phonetic'), desc="Set Keyboard to BG Phonetic"),
-    # Key([mod], 'F3', lazy.spawn('setxkbmap us'), desc="Set Keyboard to Chinese"),
-    
-    
-    
-]
+        # Keyboard layouts
+        Key([mod], "F1", lazy.spawn("setxkbmap us"), desc="Set Keyboard to US"),
+        Key([mod], "F2", lazy.spawn("setxkbmap bg bas_phonetic"), desc="Set Keyboard to BG Phonetic"),
+    ]
+    return keys
 
 
 
 
-#####################################################################
-# Groups
-#####################################################################
-groups = [Group(i) for i in "zx123456789"]
+def make_groups(names=GROUP_NAMES):
+    return [Group(name) for name in names]
 
-for i in groups:
-    keys.extend(
-        [
-            # mod1 + letter of group = switch to group
-            Key(
-                [mod],
-                i.name,
-                lazy.group[i.name].toscreen(),
-                desc="Switch to group {}".format(i.name),
-            ),
-            
-            # mod1 + shift + letter of group = switch to & move focused window to group
-            Key(
-                [mod, "shift"],
-                i.name,
-                lazy.window.togroup(i.name, switch_group=True),
-                desc="Switch to & move focused window to group {}".format(i.name),
-            ),
-            
-            # Or, use below if you prefer not to switch to that group.
-            # # mod1 + shift + letter of group = move focused window to group
-            # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-            #     desc="move focused window to group {}".format(i.name)),
-        ]
-    )
+def group_keybindings(groups, mod=MOD):
+    k = []
+    for g in groups:
+        k.extend(
+            [
+                Key([mod], g.name, lazy.group[g.name].toscreen(), desc=f"Switch to group {g.name}"),
+                Key([mod, "shift"], g.name, lazy.window.togroup(g.name, switch_group=True),
+                    desc=f"Switch to & move focused window to group {g.name}"),
+            ]
+        )
+    return k
 
 
 #####################################################################
@@ -146,69 +136,53 @@ scratch_pad = ScratchPad(
 
 )
 
-# Append to the Groups
-groups.append(scratch_pad)
-
-
-
-# Add keybindings
-keys.extend(
-    [
-        # YouTube Key Chords
+def make_scratchpad_keybindings(scratchpad, mod=MOD):
+    k = []
+    # YouTube Key Chords (light)
+    k.append(
         KeyChord([mod, "control"], "l", [
             Key([], "F1", lazy.group['scratchpad'].dropdown_toggle('emacs-youtube-light-nw')),
             Key([], "F2", lazy.group['scratchpad'].dropdown_toggle('emacs-youtube-light-ne')),
             Key([], "F3", lazy.group['scratchpad'].dropdown_toggle('emacs-youtube-light-sw')),
             Key([], "F4", lazy.group['scratchpad'].dropdown_toggle('emacs-youtube-light-se')),
-        ]),
-        
+        ])
+    )
+    # YouTube Key Chords (dark)
+    k.append(
         KeyChord([mod, "control"], "d", [
             Key([], "F1", lazy.group['scratchpad'].dropdown_toggle('emacs-youtube-dark-nw')),
             Key([], "F2", lazy.group['scratchpad'].dropdown_toggle('emacs-youtube-dark-ne')),
             Key([], "F3", lazy.group['scratchpad'].dropdown_toggle('emacs-youtube-dark-sw')),
             Key([], "F4", lazy.group['scratchpad'].dropdown_toggle('emacs-youtube-dark-se')),
-        ]),
-
-        # Emacs Key Chords
+        ])
+    )
+    # Emacs & System shortcuts
+    k.extend([
         Key([mod], "n", lazy.group['scratchpad'].dropdown_toggle('emacs-notes')),
         Key([mod, "control"], "p", lazy.group['scratchpad'].dropdown_toggle('emacs-qtile-keybindings')),
-     
-        # System
-        KeyChord( [mod], "s", [
+        KeyChord([mod], "s", [
             Key([], "h", lazy.group['scratchpad'].dropdown_toggle('htop')),
             Key([], "u", lazy.group['scratchpad'].dropdown_toggle('upgrade')),
         ]),
-
-        # File Manager
-        
         Key(["control"], "r", lazy.group['scratchpad'].dropdown_toggle('ranger')),
         Key(["control"], "3", lazy.group['scratchpad'].dropdown_toggle('project-euler')),
-        Key(["control"], "4", lazy.group['scratchpad'].dropdown_toggle('python-learning-materials'))
-        ]
-)
+        Key(["control"], "4", lazy.group['scratchpad'].dropdown_toggle('python-learning-materials')),
+    ])
+    return k
 
  
 
 
-#####################################################################
-# Layouts
-#####################################################################
-layouts = [
-    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
-    layout.Max(),
-    # Try more layouts by unleashing below layouts.
-    
-    layout.Stack(num_stacks=2),
-    # layout.Bsp(),
-    layout.Matrix(),
-    # layout.MonadTall(),
-    layout.MonadWide(),
-    # layout.RatioTile(),
-    layout.Tile(),
-    layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
-]
+def make_layouts():
+    return [
+        layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
+        layout.Max(),
+        layout.Stack(num_stacks=2),
+        layout.Matrix(),
+        layout.MonadWide(),
+        layout.Tile(),
+        layout.TreeTab(),
+    ]
 
 widget_defaults = dict(
     font="sans",
