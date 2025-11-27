@@ -22,6 +22,11 @@ from screens import *
 
 
 mod = "mod4"
+
+
+
+
+
 # The terminal variable is set to 'konsole', which is the terminal emulator
 # that will be launched when the terminal keybinding is used. This can be
 # changed to any other terminal emulator of your choice.
